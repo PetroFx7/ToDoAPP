@@ -1,12 +1,14 @@
 <script setup lang="ts">
+// All imports and variables removed as they were unused
 </script>
-
 
 <template>
   <main class="min-h-screen bg-white text-slate-900">
     <!-- Hero -->
     <section class="border-b">
-      <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
+      <div
+        class="mx-auto max-w-7xl px-6 py-20 md:py-24"
+      >
         <p
           class="mb-4 inline-block rounded-full border px-3
         py-1 text-xs font-medium tracking-wide text-slate-600"
