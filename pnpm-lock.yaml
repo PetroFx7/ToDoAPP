@@ -23,6 +23,9 @@ importers:
       vue-feather:
         specifier: ^2.0.0
         version: 2.0.0(feather-icons@4.29.2)(vue@3.5.18(typescript@5.9.2))
+      vue-multiselect:
+        specifier: 3.0.0-beta.3
+        version: 3.0.0-beta.3
       vue-router:
         specifier: ^4.2.0
         version: 4.5.1(vue@3.5.18(typescript@5.9.2))
@@ -2290,6 +2293,10 @@ packages:
     peerDependencies:
       feather-icons: ^4.28.0
       vue: ^3.0.0
+
+  vue-multiselect@3.0.0-beta.3:
+    resolution: {integrity: sha512-P7Fx+ovVF7WMERSZ0lw6N3p4H4bnQ3NcaY3ORjzFPv0r/6lpIqvFWmK9Xnwze9mgAvmNV1foI1VWrBmjnfBTLQ==}
+    engines: {node: '>= 4.0.0', npm: '>= 3.0.0'}
 
   vue-router@4.5.1:
     resolution: {integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==}
@@ -4627,6 +4634,8 @@ snapshots:
     dependencies:
       feather-icons: 4.29.2
       vue: 3.5.18(typescript@5.9.2)
+
+  vue-multiselect@3.0.0-beta.3: {}
 
   vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)):
     dependencies:
