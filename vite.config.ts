@@ -7,6 +7,7 @@ export default ({mode}: any) => {
 
     return defineConfig({
         plugins: [vue()],
+        base: '/ToDoAPP/',
         resolve: {
             alias: {
                 "@": fileURLToPath(new URL("./src", import.meta.url)),
