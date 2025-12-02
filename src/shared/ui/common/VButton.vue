@@ -12,7 +12,7 @@ type ButtonProps = {
   negative?: boolean;
   to?: string;
   href?: string;
-  type?: "button" | "submit" | "reset";
+  type?: "button" | "submit" | "reset"  ;
   loader?: boolean;
   size?: "sm" | "md" | "lg";
   class?: string;
@@ -21,6 +21,31 @@ type ButtonProps = {
 const props = defineProps<ButtonProps>();
 
 const isLink = computed(() => !!props.to);
+
+const buttonClasses = computed(() => {
+
+  let baseClasses = "flex items-center gap-2 rounded-lg transition ";
+
+  if (props.size === "sm") {
+    baseClasses += "px-3 py-1 text-sm ";
+  } else if (props.size === "lg") {
+    baseClasses += "px-5 py-3 text-lg ";
+  } else {
+    baseClasses += "px-4 py-2 text-md ";
+  }
+
+  if (props.negative) {
+    baseClasses += "bg-red-600 hover:bg-red-700 text-white ";
+  } else {
+    baseClasses += "bg-blue-600 hover:bg-blue-700 text-white ";
+  }
+
+  if (props.class) {
+    baseClasses += props.class + " ";
+  }
+
+  return baseClasses;
+});
 </script>
 
 <template>
@@ -35,8 +60,7 @@ const isLink = computed(() => !!props.to);
       ...$attrs
     }"
     class="flex items-center gap-2 px-4 py-2 rounded-lg transition"
-    :class="props.negative ? 'bg-red-600 hover:bg-red-700 text-white'
-      : 'bg-blue-600 hover:bg-blue-700 text-white'"
+    :class="buttonClasses"
   >
     <VueFeather
       v-if="props.icon && props.iconPosition !== 'right'"
@@ -44,7 +68,7 @@ const isLink = computed(() => !!props.to);
       class="w-4 h-4"
     />
 
-    <span>{{ props.text }}</span>
+    <span v-if="!!props.text">{{ props.text }}</span>
 
     <VueFeather
       v-if="props.icon && props.iconPosition === 'right'"

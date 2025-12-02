@@ -2,11 +2,11 @@ import { RouteRecordRaw } from "vue-router";
 
 const authRoutes: RouteRecordRaw[] = [
   {
-    path: "/login",
-    name: "Login",
-    component: () => import("@/pages/Login/index.vue"),
+    path: "/auth",
+    name: "Auth",
+    component: () => import("@/pages/Auth/index.vue"),
     meta: {
-      title: "Login",
+      title: "Auth",
       layout: "auth",
     },
   },

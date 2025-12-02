@@ -6,9 +6,9 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "Home",
-    component: () => import("@/pages/Login/index.vue"),
+    component: () => import("@/pages/Main/index.vue"),
     meta: {
-      title: "Login",
+      title: "Auth",
     },
   },
   {

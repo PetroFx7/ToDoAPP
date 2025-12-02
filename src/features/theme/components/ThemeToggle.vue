@@ -3,6 +3,8 @@ import { computed } from "vue";
 
 import { useThemeStore } from "../composables/useTheme";
 
+import VSwitch from "@/shared/ui/common/VSwitch.vue";
+
 const themeStore = useThemeStore();
 
 const isDark = computed(() => themeStore.isDark);
@@ -13,14 +15,11 @@ const toggleTheme = () => {
 </script>
 
 <template>
-  <button
-    class="theme-toggle"
-    :aria-label="isDark ? 'Увімкнути світлу тему' : 'Увімкнути темну тему'"
-    @click="toggleTheme"
-  >
-    <span v-if="isDark">🌙</span>
-    <span v-else>☀️</span>
-  </button>
+  <VSwitch
+    v-model="isDark"
+    :label="isDark ? 'Темна тема' : 'Світла тема'"
+    @change="toggleTheme"
+  />
 </template>
 
 <style scoped>
