@@ -11,6 +11,8 @@ type InputProps = {
 };
 
 const props = defineProps<InputProps>();
+const emit = defineEmits(["update:modelValue"]);
+
 
 const showPassword = ref(false);
 
@@ -25,17 +27,13 @@ const onInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   emit("update:modelValue", target.value);
 };
-
-
-const emit = defineEmits(["update:modelValue"]);
 </script>
-
 
 <template>
   <div class="flex flex-col gap-1">
     <label
       v-if="props.label"
-      class="font-medium text-gray-700"
+      class="font-medium text-gray-700 text-sm"
     >
       {{ props.label }}
     </label>
@@ -45,14 +43,14 @@ const emit = defineEmits(["update:modelValue"]);
         :type="inputType"
         :value="props.modelValue"
         :placeholder="props.placeholder"
-        class="border rounded-lg px-3 py-2 w-full focus:outline-none
-         focus:ring-2 focus:ring-blue-500"
+        class="w-full rounded border border-gray-300
+         px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
         @input="onInput"
       >
       <button
         v-if="props.type === 'password'"
         type="button"
-        class="absolute inset-y-6 right-2 flex place-items-center text-gray-500 hover:text-gray-700"
+        class="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
         @click="showPassword = !showPassword"
       >
         <span v-if="showPassword">
@@ -64,14 +62,11 @@ const emit = defineEmits(["update:modelValue"]);
       </button>
     </div>
 
-
     <p
       v-if="$slots.error"
-      class="text-red-600 text-sm mb-2"
+      class="text-red-500 text-sm mt-1"
     >
       <slot name="error" />
     </p>
   </div>
 </template>
-
-

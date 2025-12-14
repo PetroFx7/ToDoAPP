@@ -1,10 +1,20 @@
-<!--<script setup lang="ts">-->
+<script setup lang="ts">
+import VButton from "@/shared/ui/common/VButton.vue";
+</script>
 
-<!--</script>-->
+<template>
+  <div class="flex justify-center mb-4 ">
+    <VButton
+      text="Tab 1"
+      class="mr-2"
+    />
+    <VButton
+      text="Tab 2"
+      class=" ml-2"
+    />
+  </div>
+</template>
 
-<!--<template>-->
-<!--</template>-->
+<style scoped>
 
-<!--<style scoped>-->
-
-<!--</style>-->
+</style>

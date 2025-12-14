@@ -8,10 +8,10 @@ const props = defineProps<CardProps>();
 </script>
 
 <template>
-  <div class="bg-white rounded-2xl shadow-md p-4">
+  <div class="bg-white rounded-2xl shadow-md py-12 px-10 gap-8">
     <div
       v-if="$slots.header || props.title"
-      class="mb-2 pb-2 font-semibold border-b justify-center flex text-md"
+      class="flex items-center justify-center w-full mb-4 text-5xl  font-semibold"
     >
       <slot name="header">
         {{ props.title }}

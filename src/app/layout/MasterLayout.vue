@@ -7,8 +7,6 @@ import AuthLayout from "@/app/layout/AuthLayout.vue";
 import DefaultLayout from "@/app/layout/DefaultLayout.vue";
 import "vue-sonner/style.css";
 
-
-
 const route = useRoute();
 
 const layouts = {
@@ -25,6 +23,5 @@ const routePath = computed(() => {
 
 <template>
   <Toaster position="top-center" />
-
   <component :is="routePath" />
 </template>
