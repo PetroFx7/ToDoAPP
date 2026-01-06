@@ -1,16 +1,26 @@
 <script setup lang="ts">
-
 import { reactive } from "vue";
 import { toast } from "vue-sonner";
 
-import { useAuthStore } from "@/features/auth/store";
+import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import { useValidation } from "@/features/auth/utils/useValidation";
 import VButton from "@/shared/ui/common/VButton.vue";
 import VCard from "@/shared/ui/common/VCard.vue";
 import VInput from "@/shared/ui/common/VInput.vue";
 import VTab from "@/shared/ui/common/VTab.vue";
 
-// const emit = defineEmits(["switch"]);
+const props = defineProps<{
+  activeForm: "login" | "register";
+}>();
+
+const emit = defineEmits<{
+  "change-form": ["login" | "register"];
+}>();
+
+const tabs = [
+  { label: "Log In", value: "login" },
+  { label: "Sign Up", value: "register" },
+];
 const authStore = useAuthStore();
 
 const form = reactive({
@@ -30,7 +40,6 @@ const handleLogin = async () => {
 
   try {
     await authStore.login(form.email, form.password);
-    console.log("login " + form.email + " " + form.password);
     toast.success("Login successful");
 
   } catch (error) {
@@ -40,56 +49,60 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-8 p-4 max-h-96 mx-auto">
-    <Transition
-      name="fade"
-      appear
-    >
-      <VCard>
-        <VTab />
-        <template #header>
-          Welcome back
-        </template>
-
-
-        <VInput
-          v-model="form.email"
-          label="Enter your email"
-          type="email"
-          placeholder="Email..."
+  <Transition
+    name="fade"
+    appear
+  >
+    <VCard>
+      <template #tabs>
+        <VTab
+          :model-value="props.activeForm"
+          :tabs="tabs"
+          @update:model-value="emit('change-form', $event)"
         />
+      </template>
+      <template #header>
+        Welcome back
+      </template>
 
-        <p
-          v-for="error in v$.email.$errors"
-          :key="error.$uid"
-          class="text-red-800 text-sm"
-        >
-          {{ error.$message }}
-        </p>
-        <VInput
-          v-model="form.password"
-          label="enter your password"
-          type="password"
-          placeholder="Password"
-        />
-        <p
-          v-for="error in v$.password.$errors"
-          :key="error.$uid"
-          class="text-red-800 text-sm"
-        >
-          {{ error.$message }}
-        </p>
-        <VButton
-          text="Log in"
-          type="submit"
-          icon="log-in"
-          class="w-full flex justify-center py-3 px-5 mt-4"
-          @click="handleLogin"
-        />
-      </VCard>
-    </Transition>
-  </div>
+      <VInput
+        v-model="form.email"
+        label="Email"
+        placeholder="Enter your email"
+      />
+
+      <p
+        v-for="error in v$.email.$errors"
+        :key="error.$uid"
+        class="text-red-600 text-sm"
+      >
+        {{ error.$message }}
+      </p>
+
+      <VInput
+        v-model="form.password"
+        label="Password"
+        type="password"
+        placeholder="Enter your password"
+      />
+
+      <p
+        v-for="error in v$.password.$errors"
+        :key="error.$uid"
+        class="text-red-600 text-sm"
+      >
+        {{ error.$message }}
+      </p>
+
+      <VButton
+        text="Log In"
+        class="w-full py-3 mt-4 rounded-xl bg-neutral-800 text-white hover:bg-neutral-900"
+        @click="handleLogin"
+      />
+    </VCard>
+  </Transition>
 </template>
+
 
 <style scoped>
 .fade-enter-active,

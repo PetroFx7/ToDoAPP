@@ -6,21 +6,22 @@ import RegisterForm from "@/features/auth/components/RegisterForm.vue";
 
 const activeForm = ref<"login" | "register">("login");
 
-const toggleForm = () => {
-  activeForm.value = activeForm.value === "login" ? "register" : "login";
-};
 </script>
 
 <template>
-  <div>
-    <LoginForm
-      v-if="activeForm === 'login'"
-      @switch="toggleForm"
-    />
+  <LoginForm
+    v-if="activeForm === 'login'"
+    :active-form="activeForm"
+    @change-form="activeForm = $event"
+  />
 
-    <RegisterForm
-      v-if="activeForm === 'register'"
-      @switch="toggleForm"
-    />
-  </div>
+  <RegisterForm
+    v-else
+    :active-form="activeForm"
+    @change-form="activeForm = $event"
+  />
 </template>
+
+
+
+

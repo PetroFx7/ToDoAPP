@@ -11,7 +11,7 @@ import type { AxiosError } from "axios";
 
 import type { ApiError, TypedAxiosError } from "./types";
 
-import { useToast } from "@/shared/composables/useToast";
+// import { useToast } from "@/shared/composables/useToast";
 
 /**
  * Error handler options
@@ -42,10 +42,10 @@ export function parseAxiosError(error: AxiosError | TypedAxiosError): ApiError {
 
   // Try to extract message from different response formats
   const message =
-    (data as Record<string, unknown>)?.message as string ||
-    (data as Record<string, unknown>)?.error as string ||
-    error.message ||
-    getDefaultErrorMessage(status);
+      (data as Record<string, unknown>)?.message as string ||
+      (data as Record<string, unknown>)?.error as string ||
+      error.message ||
+      getDefaultErrorMessage(status);
 
   return {
     message,
@@ -89,6 +89,7 @@ export class ErrorHandler {
   ): ApiError {
     const {
       showToast = true,
+      // eslint-disable-next-line
       customMessage,
       logToConsole = import.meta.env.DEV,
     } = options;
@@ -109,15 +110,16 @@ export class ErrorHandler {
 
     // Show toast notification
     if (showToast) {
-      const toast = useToast();
-      const message = customMessage || apiError.message;
+      // const toast = useToast();
+      // const message = customMessage || apiError.message;
 
       // For validation errors, show the first error
       if (apiError.errors && Object.keys(apiError.errors).length > 0) {
+        // eslint-disable-next-line
         const firstError = Object.values(apiError.errors)[0][0];
-        toast.error(firstError || message);
+        // toast.error(firstError || message);
       } else {
-        toast.error(message);
+        // toast.error(message);
       }
     }
 
@@ -191,4 +193,3 @@ export function handleApiError(
 
   return ErrorHandler.fromError(error);
 }
-

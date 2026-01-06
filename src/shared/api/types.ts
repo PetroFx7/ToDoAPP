@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * API Types
  *
@@ -29,6 +28,15 @@ export interface ApiError {
 }
 
 /**
+ * Authentication mode for API requests
+ *
+ * @property 'default' - Standard authenticated request (will refresh token on 401)
+ * @property 'public' - Public endpoint (no auth header, no refresh on 401)
+ * @property 'optional' - Works with or without auth (adds token if available, no refresh on 401)
+ */
+export type AuthMode = "default" | "public" | "optional";
+
+/**
  * API request configuration with extended options
  */
 export interface ApiRequestConfig<D = unknown> extends AxiosRequestConfig<D> {
@@ -38,8 +46,15 @@ export interface ApiRequestConfig<D = unknown> extends AxiosRequestConfig<D> {
   skipSuccessNotification?: boolean
   /** Custom success message */
   successMessage?: string
-  /** Skip authorization token */
-  skipAuth?: boolean
+  /**
+   * Authentication mode
+   * - 'default': authenticated request, will refresh token on 401 (default)
+   * - 'public': public endpoint, no auth header, no refresh on 401
+   * - 'optional': adds auth if available, but no refresh on 401
+   *
+   * @default 'default'
+   */
+  authMode?: AuthMode
   /** Use retry logic */
   retry?: boolean | number
   /** Delay between retry attempts */
@@ -68,8 +83,10 @@ export interface UseApiOptions<T = unknown,
   /** Execute request immediately on creation */
   immediate?: boolean
   /** Callback on successful request - receives full AxiosResponse with data, headers, status, etc. */
+  // eslint-disable-next-line
   onSuccess?: (response: AxiosResponse<T>) => void
   /** Callback on error */
+  // eslint-disable-next-line
   onError?: (error: ApiError) => void
   /** Callback before request */
   onBefore?: () => void
@@ -107,8 +124,10 @@ export interface UseApiReturn<T = unknown, D = unknown> {
   /** Full Axios response - includes headers, status, config (optional, for advanced use) */
   response: Ref<AxiosResponse<T> | null>
   /** Execute request */
+  // eslint-disable-next-line
   execute: (config?: ApiRequestConfig<D>) => Promise<T | null>
   /** Abort request */
+  // eslint-disable-next-line
   abort: (message?: string) => void
   /** Reset state */
   reset: () => void
@@ -119,7 +138,7 @@ export interface UseApiReturn<T = unknown, D = unknown> {
  */
 export interface AuthTokens {
   accessToken: string
-  refreshToken: string
+  refreshToken?: string
   expiresIn?: number
 }
 
@@ -182,5 +201,6 @@ export interface RetryOptions {
   /** Use exponential backoff */
   exponentialBackoff?: boolean
   /** Function to check if retry is needed */
+  // eslint-disable-next-line
   shouldRetry?: (error: AxiosError) => boolean
 }

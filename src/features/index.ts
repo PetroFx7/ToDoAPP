@@ -4,7 +4,7 @@
  * Бізнес-фічі (auth, theme, modal, notifications, cart)
  *
  * Структура фічі:
- * - index.ts - Public API (ОБОВ'ЯЗКОВО!)
+ * - useAuthRequest.ts - Public API (ОБОВ'ЯЗКОВО!)
  * - components/ - UI компоненти
  * - composables/ - Pinia stores
  * - utils/ - утиліти фічі

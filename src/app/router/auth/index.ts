@@ -6,7 +6,7 @@ const authRoutes: RouteRecordRaw[] = [
     name: "Auth",
     component: () => import("@/pages/Auth/index.vue"),
     meta: {
-      title: "Auth",
+      title: "Auth - Task manager",
       layout: "auth",
     },
   },
