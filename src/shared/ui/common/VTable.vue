@@ -10,7 +10,6 @@ type TableProps = {
 };
 
 const props = defineProps<TableProps>();
-// const emit = defineEmits([]);
 
 </script>
 

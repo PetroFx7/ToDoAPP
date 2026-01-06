@@ -1,14 +1,15 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 
 import authRoutes from "@/app/router/auth";
+import { authGuard } from "@/app/router/guards";
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "Home",
-    component: () => import("@/pages/Login/index.vue"),
+    component: () => import("@/pages/Main/index.vue"),
     meta: {
-      title: "Login",
+      title: "Home - Task manager",
     },
   },
   {
@@ -26,5 +27,8 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL || "/"),
   routes,
 });
+router.beforeEach(authGuard);
+
+router.afterEach((to) => document.title = (to.meta.title as string) || "Task manager");
 
 export default router;
