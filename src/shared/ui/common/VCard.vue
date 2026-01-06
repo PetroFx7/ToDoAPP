@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 type CardProps = {
   title?: string;
 };
@@ -8,26 +7,34 @@ const props = defineProps<CardProps>();
 </script>
 
 <template>
-  <div class="bg-white rounded-2xl shadow-md py-12 px-10 gap-8">
+  <div
+    class="w-[420px] bg-white rounded-2xl shadow-xl px-8 py-10 flex flex-col
+    "
+  >
+    <div
+      v-if="$slots.tabs"
+      class="mb-6"
+    >
+      <slot name="tabs" />
+    </div>
     <div
       v-if="$slots.header || props.title"
-      class="flex items-center justify-center w-full mb-4 text-5xl  font-semibold"
+      class="mb-8 text-5xl font-bold text-center ds"
     >
       <slot name="header">
         {{ props.title }}
       </slot>
     </div>
 
-    <div class="mb-2  pb-2 font-semibold">
+    <div class="flex flex-col gap-4">
       <slot />
     </div>
 
     <div
       v-if="$slots.footer"
-      class="mt-3 pt-2  text-sm text-gray-500"
+      class="mt-6 text-sm text-gray-500 text-center"
     >
       <slot name="footer" />
     </div>
   </div>
 </template>
-
