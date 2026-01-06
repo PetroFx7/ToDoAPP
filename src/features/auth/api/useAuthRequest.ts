@@ -3,21 +3,26 @@ import type {
   LoginResponse,
   RegisterRequest,
   RegisterResponse,
-} from "@/features/auth/types";
+} from "../types";
+
 import type { UseApiOptions } from "@/shared/api/types";
-import { useApiPost } from "@/shared/composables";
+import { useApiPost } from "@/shared/composables/useApi";
 
-export default () => {
-  const fetchLoginUser = (options?: UseApiOptions<LoginResponse, LoginRequest>) => {
-    return useApiPost("/auth/login", options);
-  };
+export const useAuthApi = () => {
+  const login = (options?: UseApiOptions<LoginResponse, LoginRequest>) =>
+    useApiPost<LoginResponse, LoginRequest>("/api/auth/login", {
+      authMode: "public",
+      ...options,
+    });
 
-  const fetchRegisterUser = (options?: UseApiOptions<RegisterResponse, RegisterRequest>) => {
-    return useApiPost("/auth/register", options);
-  };
+  const register = (options?: UseApiOptions<RegisterResponse, RegisterRequest>) =>
+    useApiPost<RegisterResponse, RegisterRequest>("/api/auth/register", {
+      authMode: "public",
+      ...options,
+    });
 
   return {
-    fetchLoginUser,
-    fetchRegisterUser,
+    login,
+    register,
   };
 };

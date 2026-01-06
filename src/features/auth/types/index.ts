@@ -17,6 +17,8 @@ type RegisterResponse = {
   email: string;
   name: string;
   role: "user" | "admin";
+  permissions: string[];
+  isAdmin: boolean;
   createdAt: string;
   updatedAt: string;
 };

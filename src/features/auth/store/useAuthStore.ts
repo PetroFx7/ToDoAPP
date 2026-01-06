@@ -1,34 +1,19 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-import { useApiPost } from "@/shared/composables/useApi";
-
-type AuthResponse = {
-  accessToken: string;
-};
-
-type LoginDto = {
-  email: string;
-  password: string;
-};
-
-type RegisterDto = {
-  name: string;
-  email: string;
-  password: string;
-};
+import { useAuthApi } from "../api/useAuthRequest";
 
 export const useAuthStore = defineStore("auth", () => {
   const isAuthenticated = ref(!!localStorage.getItem("accessToken"));
 
-  const login = async (email: string, password: string) => {
-    const { execute } = useApiPost<AuthResponse, LoginDto>(
-      "/api/auth/login",
-      {
-        authMode: "public",
-        autoCleanup: false,
-      },
-    );
+  const authApi = useAuthApi();
+
+  const login = async (
+    email: string,
+    password: string,
+    options?:{ onSuccess?: () => void; onError?: () => void },
+  ) => {
+    const { execute } = authApi.login();
 
     const data = await execute({
       data: {
@@ -40,34 +25,28 @@ export const useAuthStore = defineStore("auth", () => {
     if (data?.accessToken) {
       localStorage.setItem("accessToken", data.accessToken);
       isAuthenticated.value = true;
+      options?.onSuccess?.();
+
+    } else {
+      options?.onError?.();
     }
   };
 
   const register = async (
-    username: string,
+    name: string,
     email: string,
     password: string,
+    options?:{ onSuccess?: () => void; onError?: () => void },
   ) => {
-    const { execute } = useApiPost<AuthResponse, RegisterDto>(
-      "/api/auth/register",
-      {
-        authMode: "public",
-        autoCleanup: false,
-      },
-    );
-
-    const data = await execute({
+    const { execute } = authApi.register();
+    await execute({
       data: {
-        name: username,
+        name,
         email,
         password,
       },
     });
-
-    if (data?.accessToken) {
-      localStorage.setItem("accessToken", data.accessToken);
-      isAuthenticated.value = true;
-    }
+    options?.onSuccess?.();
   };
 
   const logout = () => {

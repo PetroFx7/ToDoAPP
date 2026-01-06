@@ -37,15 +37,21 @@ const { v$ } = useValidation(form, "register");
 
 const handleRegister = async () => {
   const isValid = await v$.value.$validate();
+
   if (!isValid) {
     return;
   }
+
   try {
-    await authStore.register(form.username, form.email, form.password);
-    toast.success("Registration successful");
+    await authStore.register(form.username, form.email, form.password,{
+      onSuccess: () => toast.success("Registration successful"),
+      onError: () => toast.error("Registration failed"),
+    });
+
+    emit("change-form", "login");
+
   } catch (error) {
-    console.error("Register failed:", error);
-    toast.error("Registration failed");
+    console.error(error);
   }
 };
 </script>

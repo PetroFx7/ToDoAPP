@@ -39,11 +39,13 @@ const handleLogin = async () => {
   }
 
   try {
-    await authStore.login(form.email, form.password);
-    toast.success("Login successful");
+    await authStore.login(form.email, form.password, {
+      onSuccess: () => toast.success("Login successful"),
+      onError: () => toast.error("Login failed"),
+    });
 
   } catch (error) {
-    console.error("Login failed:", error);
+    console.error(error);
   }
 };
 </script>
