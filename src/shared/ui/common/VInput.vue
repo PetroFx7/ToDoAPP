@@ -13,7 +13,6 @@ type InputProps = {
 const props = defineProps<InputProps>();
 const emit = defineEmits(["update:modelValue"]);
 
-
 const showPassword = ref(false);
 
 const inputType = computed(() => {
@@ -30,43 +29,65 @@ const onInput = (event: Event) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-2 w-full">
+    <!-- Label -->
     <label
       v-if="props.label"
-      class="font-medium text-gray-700 text-sm"
+      class="text-uiLabel text-txtSecondaryDark"
+      :class="props.error ? 'text-dangerous' : ''"
     >
       {{ props.label }}
     </label>
 
-    <div class="relative">
+    <!-- Input wrapper -->
+    <div class="relative flex">
       <input
         :type="inputType"
         :value="props.modelValue"
         :placeholder="props.placeholder"
-        class="w-full rounded border border-gray-300
-         px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
+        class="
+          w-full outline-none bg-transparent
+          py-3 pl-4 pr-10
+          text-bodyL text-txtPrimary
+          bg-secondaryBg
+          border-2 rounded-lg
+          placeholder-muted
+          hover:border-borderHover
+          focus:shadow-innerOutline
+          disabled:border-disabled
+          disabled:cursor-not-allowed
+        "
+        :class="props.error
+          ? 'border-dangerous focus:shadow-none'
+          : 'border-borderDefault'"
         @input="onInput"
       >
+
+      <!-- Password toggle -->
       <button
         v-if="props.type === 'password'"
         type="button"
-        class="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+        class="absolute right-4 bottom-3.5 flex cursor-pointer text-muted"
         @click="showPassword = !showPassword"
       >
-        <span v-if="showPassword">
-          <VueFeather type="eye" />
-        </span>
-        <span v-else>
-          <VueFeather type="eye-off" />
-        </span>
+        <VueFeather :type="showPassword ? 'eye-off' : 'eye'" />
       </button>
     </div>
 
+    <!-- Error -->
     <p
-      v-if="$slots.error"
-      class="text-red-500 text-sm mt-1"
+      v-if="props.error"
+      class="text-dangerousErrMsg text-uiCaption"
     >
-      <slot name="error" />
+      {{ props.error }}
+    </p>
+
+    <!-- Support text -->
+    <p
+      v-else-if="props.supportTitle"
+      class="text-gray-500 text-sm"
+    >
+      {{ props.supportTitle }}
     </p>
   </div>
 </template>

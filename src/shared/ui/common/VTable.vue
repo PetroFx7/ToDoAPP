@@ -21,13 +21,13 @@ const props = defineProps<TableProps>();
     >
       {{ props.title }}
     </h2>
-    <table class="min-w-full border-collapse">
+    <table class="min-w-full border-collapse text-sm">
       <thead>
         <tr>
           <th
             v-for="column in props.columns"
             :key="column.field"
-            class="border-b px-4 py-2 text-left bg-gray-100"
+            class="px-4 py-2 text-left bg-gray-100 font-medium border-b border-gray-300"
           >
             {{ column.label }}
           </th>
@@ -45,7 +45,7 @@ const props = defineProps<TableProps>();
           <td
             v-for="column in props.columns"
             :key="column.field"
-            class="border-b px-4 py-2"
+            class="px-4 py-2 border-b border-gray-200 text-gray-800"
           >
             {{ row[column.field] }}
           </td>
@@ -54,3 +54,4 @@ const props = defineProps<TableProps>();
     </table>
   </div>
 </template>
+

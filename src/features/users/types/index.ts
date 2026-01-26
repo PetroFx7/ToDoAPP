@@ -77,7 +77,14 @@ type UserPayload = {
 
 type DateVariant = "short" | "long";
 
+type UsersFilterMode = "all" | "admin" | "user";
+
+type SortFilterMode = "newest" | "oldest";
+
+
 export type {
+  SortFilterMode,
+  UsersFilterMode,
   UserProfileData,
   UserInfo,
   AdminResponse,
