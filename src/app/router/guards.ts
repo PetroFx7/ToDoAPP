@@ -1,6 +1,6 @@
+import { tokenManager } from "@ametie/vue-muza-use";
 import type { RouteLocationNormalized } from "vue-router";
 
-import { tokenManager } from "@/shared/api/tokenManager";
 import { useAuthStore } from "@/shared/stores/useAuthStore";
 
 export const authGuard = async (to: RouteLocationNormalized) => {

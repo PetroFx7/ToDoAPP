@@ -127,6 +127,7 @@ export default {
                 sidebarHoverLink: '#232A4A',
                 sidebarActive: '#11162A',
                 sidebarBorder: 'rgba(11, 0, 80, 0.5)',
+                //theme switch
                 gradientFrom: '#161C33',
                 gradientTo: '#183BC4',
                 themeSwitchBorder: '#2C345A',

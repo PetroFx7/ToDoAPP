@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps, ref, getCurrentInstance } from "vue";
+import { defineProps, ref } from "vue";
 import Multiselect from "vue-multiselect";
 import "vue-multiselect/dist/vue-multiselect.css";
 
@@ -15,7 +15,6 @@ type TaggingProps<T = any> = {
 };
 
 const props = defineProps<TaggingProps>();
-const { emit } = getCurrentInstance()!;
 
 const value = ref(props.modelValue || []);
 const options = ref(props.options || []);
@@ -30,23 +29,7 @@ function addTag(newTag: string) {
   value.value.push(tag);
 }
 
-const valueToEmit = computed({
-  get: () => value.value,
-  set: (val: any) => {
-    value.value = val;
-
-    const returnObject = (val && val.returnObject !== undefined ? val.returnObject : false);
-
-    if ((val as any)?.returnObject === false || returnObject === false) {
-      const primitive = Array.isArray(val)
-        ? val.map(v => v.value)
-        : val?.value;
-      emit("update:modelValue", primitive);
-    } else {
-      emit("update:modelValue", val);
-    }
-  },
-});
+const model = defineModel<{ label: string, value: string }>();
 </script>
 
 <template>
@@ -62,7 +45,7 @@ const valueToEmit = computed({
     <Multiselect
       v-bind="$attrs"
       :id="props.id"
-      v-model="valueToEmit"
+      v-model="model"
       :options="options"
       :placeholder="props.placeholder"
       :tag-placeholder="props.tagPlaceholder"
@@ -89,7 +72,6 @@ const valueToEmit = computed({
   @apply truncate;
 }
 
-/* ===== Поле (input / tags) ===== */
 :deep(.multiselect__tags) {
   @apply pr-10 rounded-lg border-2 bg-none
   border-borderDefault hover:border-borderHover;
@@ -99,7 +81,6 @@ const valueToEmit = computed({
   @apply rounded-lg border-primary;
 }
 
-/* ===== Dropdown / список опцій ===== */
 :deep(.multiselect__content-wrapper) {
   @apply absolute left-0 mt-1 z-[100]
   bg-secondaryBg
@@ -109,25 +90,19 @@ const valueToEmit = computed({
   overflow-y-auto max-h-[500px];
 }
 
-/* ===== Опції ===== */
-
-/* Hover / highlight */
 :deep(.multiselect__option--highlight) {
   @apply bg-transparent text-txtPrimary;
 }
 
-/* Selected option */
 :deep(.multiselect__option--selected) {
   @apply bg-transparent text-primary font-medium;
 }
 
-/* Ховаємо службові псевдоелементи бібліотеки */
 :deep(.multiselect__option::after),
 :deep(.multiselect__option::before) {
   display: none;
 }
 
-/* ===== Caret (стрілка) ===== */
 .caret-click-zone {
   position: absolute;
   right: 0;
@@ -141,13 +116,11 @@ const valueToEmit = computed({
   z-index: 20;
 }
 
-/* Іконка */
 .icon {
   transition: transform 0.2s ease-in-out;
   transform: rotate(0deg);
 }
 
-/* Коли селект відкритий */
 .icon.is-active {
   transform: rotate(180deg);
 }

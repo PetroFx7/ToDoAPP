@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@ametie/vue-muza-use':
+        specifier: ^0.6.0
+        version: 0.6.0(axios@1.12.2)(vue@3.5.18(typescript@5.9.2))
       '@vuelidate/core':
         specifier: ^2.0.3
         version: 2.0.3(vue@3.5.18(typescript@5.9.2))
@@ -120,6 +123,12 @@ packages:
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+
+  '@ametie/vue-muza-use@0.6.0':
+    resolution: {integrity: sha512-JTU0NQ1D3hjyluyCiiNZ2/tAy+PTDnWcNaXYrjuTBG8YT6EfAoG4LOe40kwucFDArPL+7/kyaplCgCUmgdd/Vg==}
+    peerDependencies:
+      axios: ^1.0.0
+      vue: ^3.3.0
 
   '@babel/helper-string-parser@7.27.1':
     resolution: {integrity: sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA==}
@@ -560,7 +569,6 @@ packages:
 
   '@rollup/rollup-win32-x64-msvc@4.56.0':
     resolution: {integrity: sha512-H8AE9Ur/t0+1VXujj90w0HrSOuv0Nq9r1vSZF2t5km20NTfosQsGGUXDaKdQZzwuLts7IyL1fYT4hM95TI9c4g==}
-    cpu: [x64]
     os: [win32]
 
   '@rtsao/scc@1.1.0':
@@ -2433,6 +2441,11 @@ packages:
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
+
+  '@ametie/vue-muza-use@0.6.0(axios@1.12.2)(vue@3.5.18(typescript@5.9.2))':
+    dependencies:
+      axios: 1.12.2
+      vue: 3.5.18(typescript@5.9.2)
 
   '@babel/helper-string-parser@7.27.1': {}
 

@@ -1,3 +1,5 @@
+import { useApi, type UseApiOptions } from "@ametie/vue-muza-use";
+
 import type {
   LoginRequest,
   LoginResponse,
@@ -5,18 +7,17 @@ import type {
   RegisterResponse,
 } from "../types";
 
-import type { UseApiOptions } from "@/shared/api/types";
-import { useApiPost } from "@/shared/composables/useApi";
-
 export const useAuthApi = () => {
   const login = (options?: UseApiOptions<LoginResponse, LoginRequest>) =>
-    useApiPost<LoginResponse, LoginRequest>("/api/auth/login", {
+    useApi<LoginResponse, LoginRequest>("/auth/login", {
+      method: "POST",
       authMode: "public",
       ...options,
     });
 
   const register = (options?: UseApiOptions<RegisterResponse, RegisterRequest>) =>
-    useApiPost<RegisterResponse, RegisterRequest>("/api/auth/register", {
+    useApi<RegisterResponse, RegisterRequest>("/auth/register", {
+      method: "POST",
       authMode: "public",
       ...options,
     });

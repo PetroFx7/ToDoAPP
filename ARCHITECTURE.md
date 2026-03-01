@@ -36,7 +36,7 @@ src/
 │   ├── main.ts                   # Entry point
 │   ├── main.scss                 # Global styles
 │   └── router/                   # Vue Router configuration
-│       └── index.ts
+│       └── useAuthRequest.ts
 │
 ├── pages/                        # 📄 Pages Layer (Routes)
 │   ├── Home/
@@ -56,7 +56,7 @@ src/
 │
 ├── features/                     # 🎨 Features Layer (Business Logic)
 │   ├── theme/
-│   │   ├── index.ts              # Public API
+│   │   ├── useAuthRequest.ts              # Public API
 │   │   ├── components/
 │   │   │   └── ThemeToggle.vue
 │   │   ├── composables/
@@ -65,7 +65,7 @@ src/
 │   │       └── createThemes.ts
 │   │
 │   └── modal/
-│       ├── index.ts              # Public API
+│       ├── useAuthRequest.ts              # Public API
 │       └── composables/
 │           └── useModalStore.ts  # Pinia store
 │
@@ -87,22 +87,22 @@ src/
     │       └── VSwitch.vue
     │
     ├── composables/              # Reusable Vue composables
-    │   ├── index.ts
+    │   ├── useAuthRequest.ts
     │   └── useModal.ts
     │
     ├── utils/                    # Pure utility functions
-    │   ├── index.ts
+    │   ├── useAuthRequest.ts
     │   └── componentsList.ts
     │
     ├── api/                      # API client & services
-    │   ├── index.ts
+    │   ├── useAuthRequest.ts
     │   └── client.ts             # Axios instance
     │
     ├── config/                   # App configuration
     │   └── icons.ts
     │
     ├── types/                    # TypeScript types
-    │   ├── index.ts
+    │   ├── useAuthRequest.ts
     │   ├── icons.d.ts
     │   ├── vite-env.d.ts
     │   └── components/
@@ -165,7 +165,7 @@ pages/
 ```
 features/
 └── featureName/
-    ├── index.ts               # Public API (обов'язково!)
+    ├── useAuthRequest.ts               # Public API (обов'язково!)
     ├── components/            # UI компоненти фічі
     ├── composables/           # Pinia stores, composables
     ├── utils/                 # Утиліти фічі
@@ -180,13 +180,13 @@ features/
 - `cart/` — кошик товарів (для e-commerce)
 
 **Правила:**
-- **Обов'язково** експортуємо через `index.ts` (Public API)
+- **Обов'язково** експортуємо через `useAuthRequest.ts` (Public API)
 - Можна імпортувати тільки з `shared/`
 - НЕ може імпортувати інші `features/` (уникаємо циклічних залежностей)
 
 **Приклад Public API:**
 ```typescript
-// features/theme/index.ts
+// features/theme/useAuthRequest.ts
 export { default as ThemeToggle } from './components/ThemeToggle.vue';
 export { useThemeStore } from './composables/useTheme';
 export { createThemes } from './utils/createThemes';
@@ -334,7 +334,7 @@ mkdir -p src/features/auth/{components,composables,api,utils}
 2. Створюємо файли:
 ```
 features/auth/
-├── index.ts                    # Public API
+├── useAuthRequest.ts                    # Public API
 ├── components/
 │   ├── LoginForm.vue
 │   └── RegisterForm.vue
@@ -348,7 +348,7 @@ features/auth/
 
 3. Експортуємо через Public API:
 ```typescript
-// features/auth/index.ts
+// features/auth/useAuthRequest.ts
 export { default as LoginForm } from './components/LoginForm.vue';
 export { default as RegisterForm } from './components/RegisterForm.vue';
 export { useAuthStore } from './composables/useAuth';
@@ -431,7 +431,7 @@ const authStore = useAuthStore();
 
 Оновлюємо роутер:
 ```typescript
-// app/router/index.ts
+// app/router/useAuthRequest.ts
 {
   path: '/dashboard',
   name: 'Dashboard',
@@ -446,10 +446,10 @@ const authStore = useAuthStore();
 
 ### 1. Public API для features
 
-**Завжди** експортуємо через `index.ts`:
+**Завжди** експортуємо через `useAuthRequest.ts`:
 
 ```typescript
-// features/auth/index.ts
+// features/auth/useAuthRequest.ts
 export { LoginForm, RegisterForm } from './components';
 export { useAuthStore } from './composables/useAuth';
 export { login, logout, register } from './api/authApi';
@@ -608,7 +608,7 @@ export const useProductsStore = defineStore('products', () => {
 ```
 
 ```typescript
-// features/products/index.ts
+// features/products/useAuthRequest.ts
 export { useProductsStore } from './composables/useProducts';
 export * from './api/productsApi';
 ```
@@ -625,7 +625,7 @@ export * from './api/productsApi';
 - [x] Перенесені модалки в `features/modal/`
 - [x] Реорганізовані сторінки в папкову структуру
 - [x] Оновлені всі імпорти
-- [x] Створені Public API (`index.ts`) для features
+- [x] Створені Public API (`useAuthRequest.ts`) для features
 - [x] Перевірена збірка проєкту
 - [x] Створена документація
 

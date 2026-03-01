@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { toast } from "vue-sonner";
 
 import { useAuthStore } from "@/features/auth/store/useAuthStore";
@@ -8,6 +9,9 @@ import VButton from "@/shared/ui/common/VButton.vue";
 import VCard from "@/shared/ui/common/VCard.vue";
 import VInput from "@/shared/ui/common/VInput.vue";
 import VTab from "@/shared/ui/common/VTab.vue";
+
+const router = useRouter();
+const route = useRoute();
 
 const props = defineProps<{
   activeForm: "login" | "register";
@@ -33,17 +37,18 @@ const { v$ } = useValidation(form, "login");
 
 const handleLogin = async () => {
   const isValid = await v$.value.$validate();
-
-  if (!isValid) {
-    return;
-  }
+  if (!isValid) return;
 
   try {
     await authStore.login(form.email, form.password, {
-      onSuccess: () => toast.success("Login successful"),
+      onSuccess: async () => {
+        toast.success("Login successful");
+
+        const redirectTo = (route.query.redirect as string) || "/";
+        await router.push(redirectTo);
+      },
       onError: () => toast.error("Login failed"),
     });
-
   } catch (error) {
     console.error(error);
   }

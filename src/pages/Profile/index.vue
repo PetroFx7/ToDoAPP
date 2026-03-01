@@ -1,9 +1,10 @@
 <script setup lang="ts">
 
+import ProfileView from "@/features/profile/ProfileView.vue";
 </script>
 
 <template>
-  <div>UserListItem Component</div>
+  <ProfileView />
 </template>
 
 <style scoped>

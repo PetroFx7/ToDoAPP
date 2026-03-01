@@ -1,11 +1,9 @@
+import { useApiGet, tokenManager, type UseApiOptions } from "@ametie/vue-muza-use";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-import type { UseApiOptions } from "../api";
-import { useApiGet } from "../composables";
 
-import { tokenManager } from "@/shared/api/tokenManager";
 import type { UserInfo } from "@/shared/types";
 
 export const useAuthStore = defineStore("user", () => {
@@ -36,7 +34,7 @@ export const useAuthStore = defineStore("user", () => {
   const logOutUser = (): void => {
     tokenManager.clearTokens();
     userData.value = null;
-    router.push("api/auth");
+    router.push("/auth");
   };
 
   const isAdmin = () => userData.value?.role === "admin" ? router.push("/users") : router.push("/");

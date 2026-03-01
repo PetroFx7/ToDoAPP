@@ -1,17 +1,22 @@
-import type { UseApiOptions } from "@/shared/api/types";
-import { useApiGet, useApiPatch, useApiDelete } from "@/shared/composables";
-import type { AdminResponse, UserInfo, UserRole, UserPermissions, Permissions  } from "@/shared/types";
+import { UseApiOptions, useApiPatch, useApiGet, useApiDelete } from "@ametie/vue-muza-use";
+
+
+import type { AdminResponse, UserInfo, UserRole } from "@/shared/types";
 
 export const useUsersApi = () => {
 
   const fetchAllUsers = (options?: UseApiOptions<AdminResponse>) => {
-    return useApiGet<AdminResponse>("/users", {
-      immediate: false,
+    return useApiGet<AdminResponse>("/users",
+      options,
+    );
+  };
+
+  const deleteTargetUser = (id: string, options?: UseApiOptions<UserInfo>) => {
+    return useApiDelete<UserInfo>(`/users/${id}`, {
       authMode: "default",
       ...options,
     });
   };
-
   const fetchAllUsersPermissions = (options?: UseApiOptions<Permissions[]>) => {
     return useApiGet<Permissions[]>("/permissions", {
       immediate: false,
@@ -27,15 +32,6 @@ export const useUsersApi = () => {
       ...options,
     });
   };
-
-  const deleteTargetUser = (id: string, options?: UseApiOptions<UserInfo>) => {
-    return useApiDelete<UserInfo>(`/users/${id}`, {
-      authMode: "default",
-      ...options,
-    });
-  };
-
-
   const userRoleUpdate = (
     id: string,
     role: UserRole,
@@ -48,14 +44,23 @@ export const useUsersApi = () => {
     });
   };
 
-
   const userPermissionsUpdate = (
     id: string,
-    permissions: UserPermissions,
-    options?: UseApiOptions<UserInfo, UserPermissions>,
+    permissions: string[],
+    options?: UseApiOptions<UserInfo, { permissions: string[] }>,
   ) => {
-    return useApiPatch<UserInfo, UserPermissions>(`/users/${id}/permissions`, {
-      data: permissions,
+    return useApiPatch<UserInfo, { permissions: string[] }>(
+      `/users/${id}/permissions`,
+      {
+        data: { permissions },
+        authMode: "default",
+        ...options,
+      },
+    );
+  };
+  const fetchOwnProfile = (options?: UseApiOptions<UserInfo>) => {
+    return useApiGet<UserInfo>("/me", {
+      immediate: false,
       authMode: "default",
       ...options,
     });
@@ -63,10 +68,11 @@ export const useUsersApi = () => {
 
   return {
     fetchAllUsers,
-    fetchTargetUser,
     deleteTargetUser,
     fetchAllUsersPermissions,
+    fetchTargetUser,
     userRoleUpdate,
     userPermissionsUpdate,
+    fetchOwnProfile,
   };
 };

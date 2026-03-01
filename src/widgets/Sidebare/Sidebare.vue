@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from "vue-router";
 
+import { useAuthStore } from "@/shared/stores/useAuthStore";
 import VButton from "@/shared/ui/common/VButton.vue";
 
 const props = defineProps<{
@@ -15,6 +16,11 @@ const toggleSidebar = () => {
 };
 
 const route = useRoute();
+const authStore = useAuthStore();
+
+const logOutUser = () => {
+  authStore.logOutUser();
+};
 
 const isActive = (path: string) => route.path === path;
 
@@ -25,7 +31,7 @@ const isActive = (path: string) => route.path === path;
   <aside
     class="fixed top-0 left-0 h-screen bg-gray-800 text-white
            transition-[width] duration-300 ease-in-out
-           overflow-hidden z-50"
+           overflow-hidden z-50 sidebar-bg"
     :class="isSideBarOpen ? 'w-64' : 'w-16'"
   >
     <div class="relative h-14">
@@ -121,18 +127,39 @@ const isActive = (path: string) => route.path === path;
           </RouterLink>
         </li>
       </ul>
+      <VButton
+        text="Log Out"
+        class="nav-item"
+        icon="log-out"
+        @click="logOutUser"
+      />
     </nav>
   </aside>
 </template>
 
 <style scoped>
 .nav-item {
-  @apply flex items-center gap-3 px-3 py-2 rounded-md
-  hover:bg-gray-700 transition-colors;
+  @apply relative flex items-center gap-2 px-4 py-3 w-full border-none
+  whitespace-nowrap text-txtSecondaryDark text-uiBtn leading-none;
 }
 
+.nav-item.router-link-active {
+  @apply bg-sidebarActiveLink text-txtPrimaryDark rounded-lg shadow-sidebarActive;
+}
+
+
 .sidebar-text {
-  @apply overflow-hidden whitespace-nowrap
-  transition-all duration-200;
+  @apply overflow-hidden whitespace-nowrap transition-all duration-200;
+}
+
+.sidebar-bg {
+  background:
+      linear-gradient(180deg, #101624 0%, #192132 100%) padding-box,
+      linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(0,0,0,0) 0%) padding-box,
+      linear-gradient(180deg, rgba(0,0,0,0) 0%, #4A76FF 25%) padding-box,
+      linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0) 0%) padding-box,
+      linear-gradient(180deg, rgba(0,0,0,0) 0%, #4A76FF 15%) padding-box,
+      linear-gradient(180deg, #6CA3FF 0%, #B58BFF 50%, #64FFE2 100%) border-box;
 }
 </style>
+
