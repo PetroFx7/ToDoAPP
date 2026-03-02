@@ -18,3 +18,13 @@ export function deleteEmptyKeys<T extends AnyObj>(obj: T): T {
 
   return obj;
 }
+
+export const humanReadable = (key: string) => {
+  return key
+    .replace(/:/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .replace("Read All Lists", "View all users lists")
+    .replace("Read All Tasks", "View all users tasks")
+    .replace("Read Analytics", "View analytics data")
+    .replace("Read Dashboard", "Access dashboard");
+};

@@ -93,6 +93,9 @@ const onConfirmDelete = async () => {
 
 <template>
   <div class="px-2">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">
+      User Management
+    </h1>
     <VTable
       :columns="columns"
       :data="users?.data ?? []"

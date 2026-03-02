@@ -11,7 +11,8 @@ const isSidebarOpen = ref(true);
     <Sidebar v-model:is-side-bar-open="isSidebarOpen" />
     <div
       class="
-             transition-[margin] duration-300 ease-in-out"
+             transition-[margin] duration-300 ease-in-out   bg-[var(--color-background)]
+"
       :class="isSidebarOpen ? 'ml-64' : 'ml-16'"
     >
       <router-view />

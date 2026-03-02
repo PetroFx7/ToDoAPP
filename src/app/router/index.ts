@@ -50,6 +50,15 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: "/users/:id",
+    name: "AdminUserProfile",
+    component: () => import("@/pages/Users/index.vue"),
+    meta: {
+      title: "Admin Panel - Task manager",
+
+    },
+  },
+  {
     path: "/profile",
     name: "Profile",
     component: () => import("@/pages/Profile/index.vue"),

@@ -19,8 +19,9 @@ const onChange = (e: Event) => {
 </script>
 
 <template>
-  <label class="inline-flex items-center cursor-pointer select-none">
-
+  <label
+    class="flex items-center justify-between w-full cursor-pointer select-none"
+  >
     <span
       v-if="props.label && props.labelPosition === 'left'"
       class="text-gray-700"

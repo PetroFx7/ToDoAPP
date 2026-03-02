@@ -86,27 +86,6 @@ type UsersFilters = {
   role: "all" | "admin" | "user";
   sortOrder: "desc" | "asc";
 };
-export const ALL_PERMISSIONS = [
-  "create:list",
-  "read:list",
-  "update:list",
-  "delete:list",
-  "create:task",
-  "read:task",
-  "update:task",
-  "delete:task",
-  "read:dashboard",
-  "read:all-lists",
-  "read:all-tasks",
-  "read:users",
-  "update:user",
-  "delete:user",
-  "manage:roles",
-  "manage:permissions",
-  "read:analytics",
-] as const;
-
-export type Permission = typeof ALL_PERMISSIONS[number];
 
 export type {
   UsersFilters,
