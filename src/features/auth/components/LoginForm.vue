@@ -103,7 +103,7 @@ const handleLogin = async () => {
 
       <VButton
         text="Log In"
-        class="w-full py-3 mt-4 rounded-xl bg-neutral-800 text-white hover:bg-neutral-900"
+        variant="primary"
         @click="handleLogin"
       />
     </VCard>

@@ -17,11 +17,38 @@ type ButtonProps = {
   size?: "sm" | "md" | "lg";
 };
 
-const props = defineProps<ButtonProps>();
-
+const props = withDefaults(defineProps<ButtonProps>(), {
+  variant: "primary",
+});
 const isLink = computed(() => !!props.to);
 
 const isDisabled = computed(() => props.disabled || props.loading);
+
+const variantClasses = computed(() => {
+  switch (props.variant) {
+    case "primary":
+      return ` inline-flex items-center justify-center px-4 py-2
+        flex items-center gap-2 rounded-lg transition
+     bg-authBorder text-white rounded-[12px] cursor-pointer
+          transition-all duration-300 whitespace-nowrap
+           hover:bg-buttonHoverBg hover:shadow-[0_0_5px_#5A6BFF] hover:opacity-100
+      `;
+
+    case "ghost":
+      return `flex items-center gap-2 rounded-lg transition
+        bg-transparent p-1 text-muted hover:text-gray-700
+      transition-all duration-300
+      `;
+
+    case "danger":
+      return `
+        bg-red-500 text-white
+        hover:bg-red-600
+      `;
+    default:
+      return "";
+  }
+});
 
 </script>
 
@@ -30,7 +57,7 @@ const isDisabled = computed(() => props.disabled || props.loading);
     :is="isLink ? 'RouterLink' : 'button'"
     v-bind="isLink ? { to: props.to, ...$attrs } : {
       type: props.type || 'button', disabled: isDisabled, ...$attrs }"
-    class="flex items-center gap-2 rounded-lg transition "
+    :class="variantClasses"
   >
     <VueFeather
       v-if="props.icon && props.iconPosition !== 'right'"

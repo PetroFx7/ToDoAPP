@@ -70,7 +70,7 @@ const onInput = (event: Event) => {
         class="absolute right-4 bottom-3.5 flex cursor-pointer text-muted"
         @click="showPassword = !showPassword"
       >
-        <VueFeather :type="showPassword ? 'eye-off' : 'eye'" />
+        <VueFeather :type="showPassword ? 'eye' : 'eye-off'" />
       </button>
     </div>
 

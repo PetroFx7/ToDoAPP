@@ -70,6 +70,7 @@ export default {
                 secondaryBg: '#FFFFFF',
                 secondaryBgDark: '#11162A',
                 txtPrimary: '#0F172A',
+                switchOff: '#283F78',
                 txtPrimaryDark: '#E6E9F5',
                 txtSecondaryDark: '#A6ADCF',
                 txtDisabledDark: '#767D9B',
@@ -89,6 +90,7 @@ export default {
                 borderHover: '#A9BEFE',
                 borderDefaultDark: '#2B3D8A',
                 disabledBorder: '#F0F1F3',
+                buttonHoverBg: '#5A6BFF',
 
                 sidebarHoverLink: '#232A4A',
                 sidebarActiveLink: '#11162A',
@@ -123,6 +125,7 @@ export default {
                 borderHover: '#A9BEFE',
                 borderDefaultDark: '#2B3D8A',
                 disabledBorder: '#F0F1F3',
+                buttonHoverBg: '#5A6BFF',
 
                 sidebarHoverLink: '#232A4A',
                 sidebarActive: '#11162A',

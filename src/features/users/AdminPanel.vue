@@ -26,10 +26,9 @@ const handleBack = () => {
   <div class="p-3">
     <VButton
       v-if="selectedUserId"
-      class="bg-transparent p-1 text-[var(--color-muted)] hover:text-gray-700
-      transition-all duration-300"
       icon="arrow-left"
       text="All members"
+      variant="ghost"
       @click="handleBack"
     />
     <div class="p-7">

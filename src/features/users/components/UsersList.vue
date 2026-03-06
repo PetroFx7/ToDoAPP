@@ -158,7 +158,8 @@ const onConfirmDelete = async () => {
 
     <VButton
       v-if="!loading && users?.pagination?.hasMore"
-      class="mt-4"
+      variant="primary"
+      class="mt-5"
       text="Load More"
       @click="loadMore"
     />

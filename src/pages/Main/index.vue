@@ -1,6 +1,6 @@
 <script setup lang="ts">
-
 import VButton from "@/shared/ui/common/VButton.vue";
+
 </script>
 
 <template>

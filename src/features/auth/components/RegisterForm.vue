@@ -130,7 +130,7 @@ const handleRegister = async () => {
 
       <VButton
         text="Register"
-        class="w-full py-3 mt-4 rounded-xl bg-neutral-800 text-white hover:bg-neutral-900"
+        variant="primary"
         @click="handleRegister"
       />
     </VCard>

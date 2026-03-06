@@ -1,6 +1,5 @@
 import { UseApiOptions, useApiPatch, useApiGet, useApiDelete } from "@ametie/vue-muza-use";
 
-
 import type { AdminResponse, UserInfo, UserRole } from "@/shared/types";
 
 export const useUsersApi = () => {

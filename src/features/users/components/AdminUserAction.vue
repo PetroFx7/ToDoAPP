@@ -72,7 +72,7 @@ const savePermissions = async () => {
         :key="group.name"
         class="flex flex-col gap-2"
       >
-        <span class="font-medium text-gray-700">{{ group.name }}</span>
+        <span class="text-headingCard text-txtPrimary">{{ group.name }}</span>
         <div
           v-for="key in group.keys"
           :key="key"
@@ -93,6 +93,7 @@ const savePermissions = async () => {
         text="Save changes"
         :loading="loading"
         :disabled="loading"
+        class="w-[139px] h-[44px] flex items-center justify-center px-4 py-2"
         @click="savePermissions"
       />
     </div>

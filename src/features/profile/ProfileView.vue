@@ -1,10 +1,11 @@
-<script>
+<script setup lang="ts">
+import UserForm from "@/features/profile/components/UserForm.vue";
 
 
 </script>
 <template>
-  <div class="flex flex-col gap-4">
-    Aasdasddas
+  <div class="p-3">
+    <UserForm />
   </div>
 </template>
 <style scoped>

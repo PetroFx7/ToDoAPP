@@ -31,19 +31,23 @@ const onChange = (e: Event) => {
     </span>
     <div
       :class="[
-        'relative w-10 h-6 transition-colors duration-300 ease-in-out rounded-full',
-        props.modelValue ? 'bg-blue-600' : 'bg-gray-300',
+        'relative w-11 h-6 rounded-full border-2 transition-colors duration-300 ease-in-out',
+        props.modelValue
+          ? 'bg-authBorder border-authBorder'
+          : 'bg-secondaryBg border-switchOff',
         props.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
       ]"
     >
-
       <div
         :class="[
-          'absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full' +
-            ' shadow transform transition-transform duration-300 ease-in-out',
-          props.modelValue ? 'translate-x-4' : ''
+          'absolute top-1/2 left-1 w-[18px] h-[18px] rounded-full shadow-md' +
+            ' transform -translate-y-1/2 transition-transform duration-300 ease-in-out',
+          props.modelValue
+            ? 'translate-x-[18px] bg-white'
+            : 'translate-x-0 bg-switchOff'
         ]"
       />
+
       <input
         type="checkbox"
         class="absolute w-full h-full opacity-0 cursor-pointer"
@@ -51,8 +55,7 @@ const onChange = (e: Event) => {
         :disabled="props.disabled"
         @change="onChange"
       >
-    </div>
-    <span
+    </div>    <span
       v-if="props.label && props.labelPosition !== 'left'"
       class="text-gray-700"
       :class="{ 'opacity-50 cursor-not-allowed' : props.disabled }"
