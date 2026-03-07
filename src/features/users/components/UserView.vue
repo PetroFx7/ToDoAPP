@@ -30,11 +30,11 @@ const { data: user, loading } = fetchTargetUser(userId.value, {
 
     <div v-else-if="user">
       <VContainer class="relative">
-        <h2 class="text-xl font-bold mb-2">
+        <h2 class="text-xl font-bold mb-2 text-txtPrimary">
           {{ user.name }}
         </h2>
 
-        <p class="text-[var(--color-secondary)]">
+        <p class="text-secondary">
           {{ user.email }}
         </p>
 
@@ -43,7 +43,7 @@ const { data: user, loading } = fetchTargetUser(userId.value, {
       absolute
       top-4
       right-4
-      text-[var(--color-secondary)]
+      text-secondary
       text-sm
     "
         >

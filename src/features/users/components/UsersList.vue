@@ -12,7 +12,7 @@ import VTable from "@/shared/ui/common/VTable.vue";
 import { deleteEmptyKeys } from "@/shared/utils/formatter";
 
 const columns = [
-  { field: "name", label: "Name" },
+  { field: "name", label: "Member" },
   { field: "role", label: "Role" },
   { field: "createdAt", label: "Registered" },
 ];
@@ -72,7 +72,7 @@ const loadMore = () => {
   execute();
 };
 
-const handleAction = (action: string, row: { id: string }) => {
+const handleAction = (action: string, row: Record<string, any>) => {
   if (action === "open") {
     router.push({
       name: "AdminUserProfile",
@@ -93,7 +93,7 @@ const onConfirmDelete = async () => {
 
 <template>
   <div class="px-2">
-    <h1 class="text-3xl font-bold mb-6 text-gray-800">
+    <h1 class="text-3xl font-bold mb-6 text-txtPrimary">
       User Management
     </h1>
     <VTable
@@ -115,6 +115,7 @@ const onConfirmDelete = async () => {
             <VMultiSelect
               id="single-select-object"
               v-model="selectedRole"
+              :searchable="false"
               :options="roleOptions"
               label="Role"
               label-key="label"
@@ -127,6 +128,7 @@ const onConfirmDelete = async () => {
             <VMultiSelect
               id="single-select-object"
               v-model="selectedSort"
+              :searchable="false"
               :options="sortOptions"
               label="Date"
               label-key="label"

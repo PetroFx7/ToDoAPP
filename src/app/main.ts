@@ -8,6 +8,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import "./main.scss";
+import { useThemeStore } from "@/features/theme";
 
 // Create Vue app instance
 const app = createApp(App);
@@ -37,6 +38,10 @@ app.use(router);
 app.component("VueFeather", VueFeather);
 
 app.use(createApi({ axios: api }));
+
+const themeStore = useThemeStore();
+themeStore.initTheme();
+
 
 // Mount the app
 app.mount("#app");

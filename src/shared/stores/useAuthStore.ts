@@ -23,7 +23,9 @@ export const useAuthStore = defineStore("user", () => {
     }
   };
 
-  const setUser = async () => {
+  const setUser = async (user: UserInfo) => {
+    userData.value = user;
+
     if (userData.value) return;
 
     await getUser();

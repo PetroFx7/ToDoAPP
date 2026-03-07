@@ -24,7 +24,7 @@ const onChange = (e: Event) => {
   >
     <span
       v-if="props.label && props.labelPosition === 'left'"
-      class="text-gray-700"
+      class="text-txtPrimary"
       :class="{ 'opacity-50 cursor-not-allowed' : props.disabled }"
     >
       {{ props.label }}
@@ -43,7 +43,7 @@ const onChange = (e: Event) => {
           'absolute top-1/2 left-1 w-[18px] h-[18px] rounded-full shadow-md' +
             ' transform -translate-y-1/2 transition-transform duration-300 ease-in-out',
           props.modelValue
-            ? 'translate-x-[18px] bg-white'
+            ? 'translate-x-[18px] bg-switchOn'
             : 'translate-x-0 bg-switchOff'
         ]"
       />

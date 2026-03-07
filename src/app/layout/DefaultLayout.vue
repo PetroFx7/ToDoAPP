@@ -7,14 +7,14 @@ const isSidebarOpen = ref(true);
 </script>
 
 <template>
-  <div>
+  <div class="flex min-h-screen bg-background">
     <Sidebar v-model:is-side-bar-open="isSidebarOpen" />
-    <div
-      class="
-             transition-[margin] duration-300 ease-in-out bg-background"
+
+    <main
+      class="flex-1 transition-all duration-300"
       :class="isSidebarOpen ? 'ml-64' : 'ml-16'"
     >
       <router-view />
-    </div>
+    </main>
   </div>
 </template>

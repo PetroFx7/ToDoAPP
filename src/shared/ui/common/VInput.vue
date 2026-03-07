@@ -8,6 +8,7 @@ type InputProps = {
   type?: string;
   modelValue?: string;
   supportTitle?: string;
+  disabled?: boolean;
 };
 
 const props = defineProps<InputProps>();
@@ -23,6 +24,7 @@ const inputType = computed(() => {
 });
 
 const onInput = (event: Event) => {
+  if (props.disabled) return;
   const target = event.target as HTMLInputElement;
   emit("update:modelValue", target.value);
 };
@@ -30,51 +32,43 @@ const onInput = (event: Event) => {
 
 <template>
   <div class="flex flex-col gap-2 w-full">
-    <!-- Label -->
     <label
       v-if="props.label"
       class="text-uiLabel text-txtSecondaryDark"
-      :class="props.error ? 'text-dangerous' : ''"
+      :class="[props.error ? 'text-dangerous' : '', props.disabled ? 'text-disabledBtn' : '']"
     >
       {{ props.label }}
     </label>
 
-    <!-- Input wrapper -->
     <div class="relative flex">
       <input
         :type="inputType"
         :value="props.modelValue"
         :placeholder="props.placeholder"
-        class="
-          w-full outline-none bg-transparent
-          py-3 pl-4 pr-10
-          text-bodyL text-txtPrimary
-          bg-secondaryBg
-          border-2 rounded-lg
-          placeholder-muted
-          hover:border-borderHover
-          focus:shadow-innerOutline
-          disabled:border-disabled
-          disabled:cursor-not-allowed
-        "
-        :class="props.error
-          ? 'border-dangerous focus:shadow-none'
-          : 'border-borderDefault'"
+        :disabled="props.disabled"
+        class="w-full outline-none py-3 pl-4 pr-10 text-bodyL rounded-lg placeholder-muted
+         border-2 bg-secondaryBg text-txtPrimary"
+        :class="[
+          props.error ? 'border-dangerous focus:shadow-none' : 'border-borderDefault',
+          !props.disabled ? 'focus:shadow-innerOutline hover:border-borderHover' : '',
+          props.disabled ? 'opacity-50 border-disabled cursor-not-allowed' +
+            ' bg-secondaryBg text-disabledBtn' : ''
+        ]"
         @input="onInput"
       >
 
-      <!-- Password toggle -->
       <button
         v-if="props.type === 'password'"
         type="button"
-        class="absolute right-4 bottom-3.5 flex cursor-pointer text-muted"
+        class="absolute right-4 bottom-3.5 flex text-muted"
+        :class="props.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'"
+        :disabled="props.disabled"
         @click="showPassword = !showPassword"
       >
         <VueFeather :type="showPassword ? 'eye' : 'eye-off'" />
       </button>
     </div>
 
-    <!-- Error -->
     <p
       v-if="props.error"
       class="text-dangerousErrMsg text-uiCaption"
@@ -82,10 +76,10 @@ const onInput = (event: Event) => {
       {{ props.error }}
     </p>
 
-    <!-- Support text -->
     <p
       v-else-if="props.supportTitle"
       class="text-gray-500 text-sm"
+      :class="props.disabled ? 'text-gray-400' : ''"
     >
       {{ props.supportTitle }}
     </p>

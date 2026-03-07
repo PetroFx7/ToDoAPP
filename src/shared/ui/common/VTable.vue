@@ -28,18 +28,18 @@ const props = withDefaults(defineProps<TableProps>(), {
       {{ props.title }}
     </h2>
 
-    <table class="min-w-full border-collapse text-sm">
+    <table class="min-w-full border-collapse text-sm ">
       <thead>
         <tr>
           <th
             v-for="column in props.columns"
             :key="column.field"
-            class="px-4 py-2 text-left font-medium bg-gray-100 border-b border-gray-300"
+            class="px-4 py-2 text-left text-base bg-disabledBorder text-txtPrimary"
           >
             {{ column.label }}
           </th>
           <th
-            class="px-4 py-2 text-right font-medium bg-gray-100 border-b border-gray-300 w-16"
+            class="px-4 py-2 text-right font-medium bg-disabledBorder"
           />
         </tr>
       </thead>
@@ -53,7 +53,7 @@ const props = withDefaults(defineProps<TableProps>(), {
           <td
             v-for="column in props.columns"
             :key="column.field"
-            class="px-4 py-2 border-b border-gray-200"
+            class="px-4 py-2 border-b border-borderDefault"
           >
             <div
               v-if="column.field === 'name'"
@@ -75,20 +75,20 @@ const props = withDefaults(defineProps<TableProps>(), {
         <tr
           v-for="(row, rowIndex) in props.data"
           :key="rowIndex"
-          class="border-b border-gray-200 transition-all duration-200
-             hover:scale-[1.03] hover:shadow-lg hover:bg-gray-100"
+          class="border-b border-borderDefault transition-all duration-200
+             hover:scale-[1.03] hover:shadow-lg hover:bg-secondaryBg"
         >
           <td
             v-for="column in props.columns"
             :key="column.field"
-            class="px-4 py-2 text-gray-700"
+            class="px-4 py-2 text-txtPrimary"
           >
             <div
               v-if="column.field === 'name'"
               class="flex flex-col"
             >
-              <span class="font-medium text-gray-900">{{ row.name }}</span>
-              <span class="text-xs text-gray-500">{{ row.email }}</span>
+              <span class="font-medium text-txtPrimary">{{ row.name }}</span>
+              <span class="text-xs text-secondary">{{ row.email }}</span>
             </div>
 
             <span v-else-if="column.field === 'createdAt'">
@@ -103,13 +103,7 @@ const props = withDefaults(defineProps<TableProps>(), {
             <slot
               name="actions"
               :row="row"
-            >
-              <button
-                class="p-2 rounded hover:bg-gray-200 transition ьп "
-              >
-                ...
-              </button>
-            </slot>
+            />
           </td>
         </tr>
       </tbody>

@@ -37,7 +37,7 @@ const model = defineModel<{ label: string, value: string }>();
     <label
       v-if="props.label"
       :for="props.id"
-      class="typo__label whitespace-nowrap"
+      class="typo__label whitespace-nowrap text-txtPrimary"
     >
       {{ props.label }}
     </label>
@@ -69,16 +69,16 @@ const model = defineModel<{ label: string, value: string }>();
 }
 
 :deep(.multiselect__single) {
-  @apply truncate;
+  @apply truncate bg-secondaryBg text-txtPrimary;
 }
 
 :deep(.multiselect__tags) {
-  @apply pr-10 rounded-lg border-2 bg-none
-  border-borderDefault hover:border-borderHover;
+  @apply pr-10 rounded-lg border-2 bg-secondaryBg
+  border-borderDefault hover:border-borderHover ;
 }
 
 :deep(.multiselect--active .multiselect__tags) {
-  @apply rounded-lg border-primary;
+  @apply rounded-lg border-primary ;
 }
 
 :deep(.multiselect__content-wrapper) {

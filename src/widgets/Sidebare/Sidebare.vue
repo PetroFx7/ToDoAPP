@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from "vue-router";
 
+import { ThemeToggle } from "@/features/theme";
 import { useAuthStore } from "@/shared/stores/useAuthStore";
 import VButton from "@/shared/ui/common/VButton.vue";
 
@@ -37,9 +38,8 @@ const isActive = (path: string) => route.path === path;
     <div class="relative h-14">
       <VButton
         :icon="isSideBarOpen ? 'arrow-left' : 'arrow-right'"
-        class="absolute top-1/2 -translate-y-1/2
-               bg-gray-800 text-white hover:bg-gray-700
-               transition-all duration-300"
+        class="absolute top-1/2 -translate-y-1/2"
+        variant="ghost"
         :class="isSideBarOpen ? 'right-4' : 'left-1/2 -translate-x-1/2'"
         @click="toggleSidebar"
       />
@@ -130,10 +130,12 @@ const isActive = (path: string) => route.path === path;
       <VButton
         text="Log Out"
         class="nav-item"
+        variant="ghost"
         icon="log-out"
         @click="logOutUser"
       />
     </nav>
+    <ThemeToggle />
   </aside>
 </template>
 
@@ -143,9 +145,6 @@ const isActive = (path: string) => route.path === path;
   whitespace-nowrap text-txtSecondaryDark text-uiBtn leading-none;
 }
 
-.nav-item.router-link-active {
-  @apply bg-sidebarActiveLink text-txtPrimaryDark rounded-lg shadow-sidebarActive;
-}
 
 
 .sidebar-text {

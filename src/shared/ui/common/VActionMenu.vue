@@ -63,7 +63,7 @@ onBeforeUnmount(() => {
   <div class="inline-block">
     <button
       ref="buttonRef"
-      class="p-2 rounded hover:bg-gray-200 transition"
+      class="p-2 text-primary"
       @click.stop="toggle"
     >
       ...
@@ -72,7 +72,7 @@ onBeforeUnmount(() => {
     <Teleport to="body">
       <div
         v-if="isOpen"
-        class="fixed z-[9999] w-44 bg-white border border-gray-200
+        class="absolute w-44 bg-background border border-borderDefault
                rounded-lg shadow-lg overflow-hidden"
         :style="{
           top: position.top + 'px',
@@ -84,8 +84,8 @@ onBeforeUnmount(() => {
           :key="action.value"
           class="block w-full text-left px-4 py-2 text-sm transition"
           :class="action.danger
-            ? 'text-red-600 hover:bg-red-50'
-            : 'text-gray-700 hover:bg-gray-100'"
+            ? 'text-dangerous hover:bg-secondaryBg'
+            : 'text-txtPrimary hover:bg-secondaryBg'"
           @click="emit('select', action.value); close()"
         >
           {{ action.label }}
