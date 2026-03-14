@@ -56,8 +56,8 @@ const { execute, data: users, loading } = fetchAllUsers({
 
 const handleDelete = async (id: string) => {
   try {
-    const { execute } = deleteTargetUser(id);
-    await execute();
+    const { execute: deleteUser } = deleteTargetUser(id);
+    await deleteUser();
 
     if (users.value?.data) {
       users.value.data = users.value.data.filter((u) => u.id !== id);
@@ -75,8 +75,8 @@ const loadMore = () => {
 const handleAction = (action: string, row: Record<string, any>) => {
   if (action === "open") {
     router.push({
-      name: "AdminUserProfile",
-      params: { id: row.id },
+      name: "Profile",
+      query: { id: row.id },
     });
   }  if (action === "delete") {
     targetId.value = row.id;
@@ -155,8 +155,20 @@ const onConfirmDelete = async () => {
       v-model:show="showDeleteModal"
       title="Delete User"
       message="Are you sure you want to delete this user?"
-      @confirm="onConfirmDelete"
-    />
+    >
+      <template #actions>
+        <VButton
+          variant="outline"
+          text="Cancel"
+          @click="showDeleteModal = false"
+        />
+        <VButton
+          variant="danger"
+          text="Delete"
+          @click="onConfirmDelete"
+        />
+      </template>
+    </VModal>
 
     <VButton
       v-if="!loading && users?.pagination?.hasMore"

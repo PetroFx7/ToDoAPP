@@ -1,26 +1,12 @@
 <script setup lang="ts">
-import {  defineProps, defineEmits } from "vue";
+import {  defineProps } from "vue";
 
 const props = defineProps<{
   title?: string;
   message?: string;
-  confirmText?: string;
-  cancelText?: string;
   show: boolean;
 }>();
 
-const emit = defineEmits(["update:show", "confirm", "cancel"]);
-
-
-const handleConfirm = () => {
-  emit("confirm");
-  emit("update:show", false);
-};
-
-const handleCancel = () => {
-  emit("cancel");
-  emit("update:show", false);
-};
 </script>
 
 <template>
@@ -30,26 +16,20 @@ const handleCancel = () => {
         v-if="props.show"
         class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
       >
-        <div class="bg-white rounded-lg shadow-lg w-96 p-6">
-          <h3 class="text-lg font-semibold mb-4">
+        <div class="bg-secondaryBg rounded-lg shadow-lg w-96 p-6">
+          <h3 class="text-modalHead font-semibold mb-4 text-txtPrimary">
             {{ props.title || "Confirm" }}
           </h3>
-          <p class="text-gray-700 mb-6">
-            {{ props.message || "Are you sure?" }}
-          </p>
+          <div class="mb-6 space-y-2 flex flex-col items-center">
+            <p class="text-txtPrimary text-uiHead">
+              {{ props.message || "Are you sure?" }}
+            </p>
+            <p class="text-secondary text-uiLabel">
+              This action can’t be undone
+            </p>
+          </div>
           <div class="flex justify-end gap-3">
-            <button
-              class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 transition"
-              @click="handleCancel"
-            >
-              {{ props.cancelText || "Cancel" }}
-            </button>
-            <button
-              class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 transition"
-              @click="handleConfirm"
-            >
-              {{ props.confirmText || "Delete" }}
-            </button>
+            <slot name="actions" />
           </div>
         </div>
       </div>

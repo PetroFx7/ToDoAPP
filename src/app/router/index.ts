@@ -9,17 +9,9 @@ const routes: RouteRecordRaw[] = [
     name: "Home",
     component: () => import("@/pages/Main/index.vue"),
     meta: {
-
+      showHeader: true,
+      headerTitle: "Good to see you again,",
       title: "Home - Task manager",
-    },
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "NotFound",
-    component: () => import("@/pages/NotFound/index.vue"),
-    meta: {
-
-      title: "404 - Сторінку не знайдено",
     },
   },
   {
@@ -27,7 +19,9 @@ const routes: RouteRecordRaw[] = [
     name: "Lists",
     component: () => import("@/pages/Lists/index.vue"),
     meta: {
-
+      permissions: ["read:list"],
+      showHeader: true,
+      headerTitle: "Manage all your task groups in one place",
       title: "Lists - Task manager",
     },
   },
@@ -36,7 +30,9 @@ const routes: RouteRecordRaw[] = [
     name: "Analytics",
     component: () => import("@/pages/Analytics/index.vue"),
     meta: {
-
+      showHeader: true,
+      headerTitle: "See how your tasks are progressing over time",
+      permissions: ["read:analytics"],
       title: "Analytics - Task manager",
     },
   },
@@ -45,8 +41,8 @@ const routes: RouteRecordRaw[] = [
     name: "AdminPanel",
     component: () => import("@/pages/Users/index.vue"),
     meta: {
+      permissions: ["read:users"],
       title: "Admin Panel - Task manager",
-
     },
   },
   {
@@ -54,6 +50,7 @@ const routes: RouteRecordRaw[] = [
     name: "AdminUserProfile",
     component: () => import("@/pages/Users/index.vue"),
     meta: {
+      permissions: ["read:users"],
       title: "Admin Panel - Task manager",
 
     },
@@ -66,6 +63,15 @@ const routes: RouteRecordRaw[] = [
       requiredAuth: true,
 
       title: "Profile - Task manager",
+    },
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("@/pages/NotFound/index.vue"),
+    meta: {
+
+      title: "404 - Сторінку не знайдено",
     },
   },
   ...authRoutes,

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 type CheckboxProps = {
   modelValue?: boolean;
   disabled?: boolean;
@@ -9,9 +11,13 @@ type CheckboxProps = {
 const props = defineProps<CheckboxProps>();
 const emit = defineEmits(["update:modelValue"]);
 
-const onChange = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  emit("update:modelValue", target.checked);
+const isChecked = computed({
+  get: () => !!props.modelValue,
+  set: (val: boolean) => emit("update:modelValue", val),
+});
+
+const toggle = () => {
+  if (!props.disabled) isChecked.value = !isChecked.value;
 };
 </script>
 
@@ -20,26 +26,32 @@ const onChange = (e: Event) => {
 
     <span
       v-if="props.label && props.labelPosition === 'left'"
-      class="text-gray-700"
+      class="text-txtPrimary"
     >
       {{ props.label }}
     </span>
 
-    <input
-      type="checkbox"
-      :checked="props.modelValue"
-      :disabled="props.disabled"
-      class="w-4 h-4 rounded border-gray-300 text-blue-600
-       focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-      @input="onChange"
+    <div
+      :class="[
+        'w-5 h-5 rounded border-2 flex items-center justify-center transition-colors duration-200',
+        isChecked ? 'bg-primary border-primary' : 'border-borderDefault',
+        props.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+        !props.disabled ? 'hover:border-borderHover' : ''
+      ]"
+      @click="toggle"
     >
+      <VueFeather
+        v-if="isChecked"
+        type="check"
+        class="w-4 h-5 text-white"
+      />
+    </div>
 
     <span
       v-if="props.label && props.labelPosition !== 'left'"
-      class="text-gray-700"
+      class="text-txtPrimary"
     >
       {{ props.label }}
     </span>
-
   </label>
 </template>

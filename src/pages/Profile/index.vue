@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import ProfileView from "@/features/profile/ProfileView.vue";
+import UserProfile from "@/widgets/Profile/UserProfile.vue";
 </script>
 
 <template>
-  <ProfileView />
+  <UserProfile />
 </template>
 
 <style scoped>

@@ -77,10 +77,11 @@ export default {
                 txtMutedLight: '#94A3B8',
                 muted: '#94A3B8',
                 disabledBtn: '#CBD5E1',
-                primary: '#476FFF',
+                primary: '#6C7CFF',
                 secondary: '#475569',
                 activePrimary: '#4B5BFF',
                 dangerous: '#EF4444',
+                hoverDangerous: '#DC2626',
                 activeDangerous: '#B91C1C',
                 dangerousErrMsg: '#F08A8A',
                 authBorder: '#6C7CFF',
@@ -92,10 +93,10 @@ export default {
                 buttonHoverBg: '#5A6BFF',
                 switchOff: '#283F78',
                 switchOn: '#FFFFFF',
-
+                sideBarTxt:'#A6ADCF',
 
                 sidebarHoverLink: '#232A4A',
-                sidebarActiveLink: '#11162A',
+                sidebarActive: '#11162A',
                 sidebarBorder: 'rgba(11, 0, 80, 0.5)',
                 //theme switch
                 gradientFrom: '#422CD0',
@@ -109,7 +110,7 @@ export default {
                 secondaryBgDark: '#11162A',
                 txtPrimary: '#E6E9F5',
                 txtPrimaryDark: '#E6E9F5',
-                txtSecondaryDark: '#A6ADCF',
+                txtSecondaryDark: '#323855',
                 txtDisabledDark: '#767D9B',
                 txtMutedDark: '#6E76A3',
                 txtMutedLight: '#94A3B8',
@@ -119,6 +120,7 @@ export default {
                 secondary: '#A6ADCF',
                 activePrimary: '#4B5BFF',
                 dangerous: '#EF4444',
+                hoverDangerous: '#DC2626',
                 activeDangerous: '#B91C1C',
                 dangerousErrMsg: '#F08A8A',
                 authBorder: '#6C7CFF',
@@ -130,6 +132,7 @@ export default {
                 buttonHoverBg: '#5A6BFF',
                 switchOff: '#C6D3F4',
                 switchOn: '#1D2645',
+                sideBarTxt: '#A6ADCF',
 
 
 

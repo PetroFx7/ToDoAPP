@@ -12,7 +12,7 @@ type ButtonProps = {
   to?: string;
   href?: string;
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "danger" | "ghost";
+  variant?: "primary" | "danger" | "ghost" | "outline";
   loading?: boolean;
   size?: "sm" | "md" | "lg";
 };
@@ -42,8 +42,16 @@ const variantClasses = computed(() => {
 
     case "danger":
       return `
-        bg-red-500 text-white
-        hover:bg-red-600
+        px-4 py-2 rounded-xl bg-dangerous text-white
+               hover:bg-hoverDangerous transition
+                active:bg-activeDangerous
+      `;
+    case "outline":
+      return `
+        px-4 py-2 rounded-xl text-primary bg-none border-primary border-2
+               hover:shadow-[inset_0_0_5px_0_#5A6BFF,0_0_5px_0_#5A6BFF]
+                 hover:[text-shadow:0_0_5px_#5A6BFF]
+ transition ease-in-out duration-150
       `;
     default:
       return "";

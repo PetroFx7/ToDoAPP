@@ -9,6 +9,7 @@ type InputProps = {
   modelValue?: string;
   supportTitle?: string;
   disabled?: boolean;
+  variant?: "default" | "search";
 };
 
 const props = defineProps<InputProps>();
@@ -21,6 +22,15 @@ const inputType = computed(() => {
     return showPassword.value ? "text" : "password";
   }
   return props.type || "text";
+});
+
+const variantClasses = computed(() => {
+  switch (props.variant) {
+    case "search":
+      return "rounded-2xl";
+    default:
+      return "rounded-lg";
+  }
 });
 
 const onInput = (event: Event) => {
@@ -42,17 +52,18 @@ const onInput = (event: Event) => {
 
     <div class="relative flex">
       <input
+        v-bind="$attrs"
         :type="inputType"
         :value="props.modelValue"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
-        class="w-full outline-none py-3 pl-4 pr-10 text-bodyL rounded-lg placeholder-muted
+        class="w-full outline-none py-3 pl-4 pr-10 text-bodyL placeholder-muted
          border-2 bg-secondaryBg text-txtPrimary"
-        :class="[
-          props.error ? 'border-dangerous focus:shadow-none' : 'border-borderDefault',
-          !props.disabled ? 'focus:shadow-innerOutline hover:border-borderHover' : '',
-          props.disabled ? 'opacity-50 border-disabled cursor-not-allowed' +
-            ' bg-secondaryBg text-disabledBtn' : ''
+        :class="[variantClasses,
+                 props.error ? 'border-dangerous focus:shadow-none' : 'border-borderDefault',
+                 !props.disabled ? 'focus:shadow-innerOutline hover:border-borderHover' : '',
+                 props.disabled ? 'opacity-50 border-disabled cursor-not-allowed' +
+                   ' bg-secondaryBg text-disabledBtn' : ''
         ]"
         @input="onInput"
       >

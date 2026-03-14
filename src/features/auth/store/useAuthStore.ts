@@ -46,12 +46,9 @@ export const useAuthStore = defineStore("auth", () => {
     loading.value = true;
 
     const { execute } = useApiPost<{ accessToken: string; refreshToken: string }, { name: string; email: string; password: string }>("/auth/register", {
-      onSuccess: (res) => {
-        if (res.data?.accessToken) {
-          tokenManager.setTokens(res.data);
-          isAuthenticated.value = true;
-          options?.onSuccess?.();
-        }
+      onSuccess: () => {
+        isAuthenticated.value = true;
+        options?.onSuccess?.();
       },
       onError: () => {
         options?.onError?.();

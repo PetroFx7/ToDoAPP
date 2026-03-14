@@ -11,7 +11,6 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:isSideBarOpen"]);
 
-
 const toggleSidebar = () => {
   emit("update:isSideBarOpen", !props.isSideBarOpen);
 };
@@ -25,15 +24,24 @@ const logOutUser = () => {
 
 const isActive = (path: string) => route.path === path;
 
+const hasPermissions = (permissions: string) => {
+  return authStore.userData?.permissions.includes(permissions);
+};
+const sidebarItemClass = (path?: string) => [
+  "nav-item",
+  path && isActive(path) && "activeSidebarItem",
+  props.isSideBarOpen ? "mx-4 gap-2" : "closeSidebarItem",
+];
 
 </script>
 
 <template>
   <aside
-    class="fixed top-0 left-0 h-screen bg-gray-800 text-white
-           transition-[width] duration-300 ease-in-out
-           overflow-hidden z-50 sidebar-bg"
-    :class="isSideBarOpen ? 'w-64' : 'w-16'"
+    class="fixed top-0 left-0 h-screen flex flex-col
+          text-white
+         transition-[width] duration-300 ease-in-out
+         overflow-hidden z-50 sidebar-bg rounded-r-lg"
+    :class="isSideBarOpen ? 'w-64' : 'w-18'"
   >
     <div class="relative h-14">
       <VButton
@@ -45,13 +53,12 @@ const isActive = (path: string) => route.path === path;
       />
     </div>
 
-    <nav class="mt-4">
-      <ul class="space-y-1">
-        <li>
+    <nav class="flex-1">
+      <ul class="space-y-1 ">
+        <li v-if="hasPermissions('read:dashboard')">
           <RouterLink
             to="/"
-            class="nav-item"
-            :class="isActive('/') ? 'bg-gray-900 font-bold' : ''"
+            :class="sidebarItemClass('/')"
           >
             <vue-feather type="home" />
             <span
@@ -63,11 +70,10 @@ const isActive = (path: string) => route.path === path;
           </RouterLink>
         </li>
 
-        <li>
+        <li v-if="hasPermissions('read:list')">
           <RouterLink
             to="/lists"
-            class="nav-item"
-            :class="isActive('/lists') ? 'bg-gray-900 font-bold' : ''"
+            :class="sidebarItemClass('/lists')"
           >
             <vue-feather type="list" />
             <span
@@ -79,11 +85,10 @@ const isActive = (path: string) => route.path === path;
           </RouterLink>
         </li>
 
-        <li>
+        <li v-if="hasPermissions('read:analytics')">
           <RouterLink
             to="/analytics"
-            class="nav-item"
-            :class="isActive('/analytics') ? 'bg-gray-900 font-bold' : ''"
+            :class="sidebarItemClass('/analytics')"
           >
             <vue-feather type="bar-chart-2" />
             <span
@@ -98,8 +103,7 @@ const isActive = (path: string) => route.path === path;
         <li>
           <RouterLink
             to="/profile"
-            class="nav-item"
-            :class="isActive('/profile') ? 'bg-gray-900 font-bold' : ''"
+            :class="sidebarItemClass('/profile')"
           >
             <vue-feather type="user" />
             <span
@@ -111,11 +115,10 @@ const isActive = (path: string) => route.path === path;
           </RouterLink>
         </li>
 
-        <li>
+        <li v-if="hasPermissions('read:users')">
           <RouterLink
             to="/users"
-            class="nav-item"
-            :class="isActive('/users') ? 'bg-gray-900 font-bold' : ''"
+            :class="sidebarItemClass('/users')"
           >
             <vue-feather type="settings" />
             <span
@@ -127,25 +130,32 @@ const isActive = (path: string) => route.path === path;
           </RouterLink>
         </li>
       </ul>
-      <VButton
-        text="Log Out"
-        class="nav-item"
-        variant="ghost"
-        icon="log-out"
-        @click="logOutUser"
-      />
     </nav>
     <ThemeToggle />
+
+    <div class="mb-4 mx-4">
+      <VButton
+        :text="isSideBarOpen ? 'Log out' : ''"
+        icon="log-out"
+        :class="['nav-item w-full',
+                 isSideBarOpen ? 'gap-2' : 'closeSidebarItem']"
+        variant="ghost"
+        @click="logOutUser"
+      />
+    </div>
   </aside>
 </template>
 
 <style scoped>
 .nav-item {
-  @apply relative flex items-center gap-2 px-4 py-3 w-full border-none
-  whitespace-nowrap text-txtSecondaryDark text-uiBtn leading-none;
+  @apply relative flex items-center px-4 py-3  rounded-lg
+    hover:bg-borderDefaultDark transition-colors duration-200
+  whitespace-nowrap text-sideBarTxt hover:text-txtPrimaryDark text-uiBtn leading-none
+  active:bg-sidebarActive;
+  transition-property: margin, gap;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
 }
-
-
 
 .sidebar-text {
   @apply overflow-hidden whitespace-nowrap transition-all duration-200;
@@ -153,12 +163,19 @@ const isActive = (path: string) => route.path === path;
 
 .sidebar-bg {
   background:
-      linear-gradient(180deg, #101624 0%, #192132 100%) padding-box,
-      linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(0,0,0,0) 0%) padding-box,
-      linear-gradient(180deg, rgba(0,0,0,0) 0%, #4A76FF 25%) padding-box,
-      linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0) 0%) padding-box,
-      linear-gradient(180deg, rgba(0,0,0,0) 0%, #4A76FF 15%) padding-box,
-      linear-gradient(180deg, #6CA3FF 0%, #B58BFF 50%, #64FFE2 100%) border-box;
+      linear-gradient(to top, rgba(255,255,255,0.1) 0%, transparent 10%),
+      linear-gradient(to top, #101624 0%, #192132 10%),
+   linear-gradient(to top, #FFFFFF1A 10%, #00000000 0%),
+   linear-gradient(to top, #00000000 0%, #4A76FF40 25%),
+   linear-gradient(to top, #FFFFFF1A 10%, #00000000 0%),
+   linear-gradient(to top, #00000000 0%, #4A76FF26 15%);
+  box-shadow: 0px 0px 15px 0px #3121BF66;
+}
+
+.activeSidebarItem {
+  @apply bg-sidebarActive font-bold shadow-md shadow-sidebarActive;
+}
+.closeSidebarItem {
+  @apply gap-0  justify-center px-0 ;
 }
 </style>
-

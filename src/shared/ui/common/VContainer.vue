@@ -14,8 +14,8 @@ const {
 } = defineProps<ContainerProps>();
 
 const styleVariants: Record<BoxStyle, string> = {
-  weekly: "flex flex-col p-4 bg-background rounded-xl border border-listCardBorder",
-  card: "flex flex-col gap-5 p-6 bg-background rounded-xl border border-listCardBorder",
+  weekly: "flex flex-col p-4 bg-secondaryBg rounded-xl border border-listCardBorder",
+  card: "flex flex-col gap-5 p-6 bg-secondaryBg rounded-xl border border-listCardBorder",
   custom: "flex flex-col gap-5 p-6 bg-secondaryBg border border-listCardBorder",
 };
 </script>

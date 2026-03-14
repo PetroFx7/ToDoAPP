@@ -19,7 +19,7 @@ export function deleteEmptyKeys<T extends AnyObj>(obj: T): T {
   return obj;
 }
 
-export const humanReadable = (key: string) => {
+export const humanReadablePermissions = (key: string) => {
   return key
     .replace(/:/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase())
